@@ -29,3 +29,9 @@ body{background:radial-gradient(ellipse at 75% 8%,rgba(145,37,73,.2),transparent
 .step-card:hover{transform:translateY(-4px);border-color:#f06b8055}
 .plan-card{border-radius:22px;background:radial-gradient(ellipse at 85% 40%,#71334e66,transparent 42%),linear-gradient(110deg,#191e32,#171729);box-shadow:0 20px 60px #0003}
 @media(max-width:650px){.download-panel{padding:19px;border-radius:18px}.url-entry{flex-direction:column;padding:7px}.url-entry input{height:43px}.url-entry button{height:46px;width:100%}}
+
+/* Official TikTok preview */
+.video-preview{display:grid;place-items:center;margin:0 0 20px;min-height:0}
+.video-preview:empty{display:none}
+.video-preview iframe{display:block;width:min(100%,340px);height:600px;max-height:75vh;border:0;border-radius:14px;background:#000}
+.url-entry button:disabled{opacity:.65;cursor:wait;transform:none}
