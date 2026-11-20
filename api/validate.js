@@ -8,43 +8,29 @@ const ALLOWED_HOSTS = new Set([
 
 function normalizeTikTokUrl(value) {
   if (typeof value !== 'string') return null;
-
   let candidate = value.trim().replace(/^["']+|["']+$/g, '').trim();
-  candidate = candidate.replace(/^\/+(?=https?:\/\/)/i, '');
-
+  candidate = candidate.replace(/^\\/+(?=https?:\\/\\/)/i, '');
   if (!candidate) return null;
-  if (!/^https?:\/\//i.test(candidate)) candidate = 'https://' + candidate;
+  if (!/^https?:\\/\\//i.test(candidate)) candidate = 'https://' + candidate;
 
   let parsed;
-  try {
-    parsed = new URL(candidate);
-  } catch {
-    return null;
-  }
-
-  if (parsed.protocol !== 'https:' && parsed.protocol !== 'http:') return null;
+  try { parsed = new URL(candidate); } catch { return null; }
+  if (!['https:', 'http:'].includes(parsed.protocol)) return null;
   if (!ALLOWED_HOSTS.has(parsed.hostname.toLowerCase())) return null;
-  if (parsed.username || parsed.password) return null;
-  if (!parsed.pathname || parsed.pathname === '/') return null;
-
+  if (parsed.username || parsed.password || !parsed.pathname || parsed.pathname === '/') return null;
   parsed.hash = '';
   return parsed.toString();
 }
 
-module.exports = function handler(req, res) {
+module.exports = async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store');
-
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
-    return res.status(405).json({
-      ok: false,
-      error: 'method_not_allowed'
-    });
+    return res.status(405).json({ ok: false, error: 'method_not_allowed' });
   }
 
   const body = req.body && typeof req.body === 'object' ? req.body : {};
   const rawUrl = body.url;
-
   if (typeof rawUrl !== 'string' || rawUrl.length > 2048) {
     return res.status(400).json({
       ok: false,
@@ -62,12 +48,53 @@ module.exports = function handler(req, res) {
     });
   }
 
-  return res.status(200).json({
-    ok: true,
-    valid: true,
-    normalizedUrl,
-    providerConfigured: false,
-    downloadEnabled: false,
-    message: 'تم التحقق من صيغة الرابط. لم يتم تنزيل الفيديو؛ مصدر المعالجة الرسمي أو المرخّص لم يُربط بعد.'
-  });
+  try {
+    // TikTok's official oEmbed endpoint provides an attributed player preview.
+    // It does NOT provide a video download URL.
+    const endpoint = 'https://www.tiktok.com/oembed?url=' + encodeURIComponent(normalizedUrl);
+    const response = await fetch(endpoint, {
+      headers: { Accept: 'application/json' }
+    });
+
+    if (!response.ok) {
+      return res.status(422).json({
+        ok: false,
+        valid: true,
+        normalizedUrl,
+        previewAvailable: false,
+        downloadEnabled: false,
+        message: 'الرابط يبدو صحيحاً، لكن TikTok لم يُرجع معاينة لهذا الفيديو. تأكد أن الفيديو عام وأن الرابط كامل.'
+      });
+    }
+
+    const data = await response.json();
+    const videoId = String(data.embed_product_id || '').match(/^\\d+$/)?.[0];
+    if (data.type !== 'video' || !videoId) {
+      return res.status(422).json({
+        ok: false,
+        valid: true,
+        normalizedUrl,
+        previewAvailable: false,
+        downloadEnabled: false,
+        message: 'لم يتمكن TikTok من توفير معاينة لهذا الرابط.'
+      });
+    }
+
+    return res.status(200).json({
+      ok: true,
+      valid: true,
+      normalizedUrl,
+      previewAvailable: true,
+      videoId,
+      title: typeof data.title === 'string' ? data.title : '',
+      downloadEnabled: false,
+      message: 'تم التحقق من الرابط وجلب معاينة رسمية من TikTok. التنزيل غير متاح بعد.'
+    });
+  } catch (error) {
+    return res.status(502).json({
+      ok: false,
+      error: 'tiktok_preview_unavailable',
+      message: 'تعذر الاتصال بخدمة TikTok الآن. حاول مرة أخرى بعد قليل.'
+    });
+  }
 };
