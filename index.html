@@ -2,30 +2,41 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#090d18"><meta name="description" content="VIDORA - أدوات فيديو بسيطة للمحتوى الذي تملكه أو تملك إذناً بتنزيله.">
-<title>VIDORA | أدوات الفيديو</title><link rel="stylesheet" href="/style.css">
+<meta name="theme-color" content="#080b14"><meta name="description" content="VIDORA — احفظ فيديوهاتك المصرح بها بأفضل جودة متاحة.">
+<title>VIDORA | Video tools</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css?v=2">
 </head>
 <body>
-<header class="topbar"><a class="brand" href="#"><span class="brand-mark">V</span><span>VIDORA</span></a><nav><a href="#how">طريقة الاستخدام</a><a href="#plans">الباقات</a><a class="nav-cta" href="#tool">ابدأ الآن</a></nav></header>
+<div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+<header class="site-header">
+<a class="brand" href="#" aria-label="VIDORA home"><span class="brand-symbol">V</span><span>VIDORA</span></a>
+<nav class="desktop-nav"><a href="#how">كيف تعمل</a><a href="#features">المميزات</a><a href="#plans">الخطة المجانية</a></nav>
+<a class="header-cta" href="#tool">ابدأ الآن <span>↙</span></a>
+</header>
 <main>
 <section class="hero">
-<div class="eyebrow"><i></i> أدوات فيديو بسيطة وآمنة</div>
-<h1>فيديوهاتك،<br><span>جاهزة في أي وقت.</span></h1>
-<p class="sub">أداة تساعدك على تجهيز تنزيل الفيديوهات التي تملكها أو لديك إذن صريح بحفظها.</p>
-<div class="tool-card" id="tool">
-<label for="videoUrl">رابط فيديو TikTok</label>
-<div class="input-row"><input id="videoUrl" type="url" inputmode="url" placeholder="الصق رابط فيديو TikTok هنا..." autocomplete="url"><button id="checkBtn">فحص الرابط <b>←</b></button></div>
-<p class="status" id="status" aria-live="polite">لن يتم تجاوز إعدادات الخصوصية أو قيود التنزيل الخاصة بالمنصة.</p>
+<div class="hero-copy">
+<div class="eyebrow"><span class="eyebrow-dot"></span> أداة فيديو بسيطة. تجربة أسرع.</div>
+<h1>فيديوهاتك تستاهل<br><span class="gradient-text">أفضل جودة.</span></h1>
+<p class="hero-description">VIDORA مساحة سهلة لحفظ الفيديوهات التي تملكها أو لديك تصريح بتنزيلها، مع الحفاظ على أفضل جودة متاحة من المصدر.</p>
+<div class="hero-points"><span><i>✓</i> سهلة الاستخدام</span><span><i>✓</i> متوافقة مع الهاتف</span><span><i>✓</i> تحترم حقوق المبدعين</span></div>
 </div>
-<div class="trust"><span>✓ واجهة مناسبة للموبايل</span><span>✓ لا نضغط الفيديو بلا داعٍ</span><span>✓ احترام حقوق أصحاب المحتوى</span></div>
+<div class="download-panel" id="tool">
+<div class="panel-top"><div><span class="panel-label">ابدأ من هنا</span><h2>ضع رابط الفيديو</h2></div><div class="link-icon">↗</div></div>
+<label for="videoUrl">رابط TikTok</label>
+<div class="url-entry"><input id="videoUrl" type="url" inputmode="url" placeholder="https://www.tiktok.com/@..." autocomplete="url"><button id="checkBtn"><span>فحص الرابط</span><b>←</b></button></div>
+<div class="panel-status" id="status" role="status" aria-live="polite"><span class="status-indicator"></span><span>استخدم رابط فيديو تملك حق تنزيله أو إذن صاحبه.</span></div>
+<div class="panel-bottom"><span>خصوصيتك وحقوق أصحاب المحتوى مهمة</span><span class="secure-mark">◇ آمن وبسيط</span></div>
+</div>
+<div class="hero-art" aria-hidden="true"><div class="art-ring ring-a"></div><div class="art-ring ring-b"></div><div class="art-card"><div class="art-play">▶</div><div class="art-lines"><i></i><i></i><i></i></div><div class="art-tag">VIDORA / VIDEO</div></div><span class="art-spark spark-a">✦</span><span class="art-spark spark-b">✧</span></div>
 </section>
-<section class="features" id="how"><div class="section-head"><small>بسيطة وواضحة</small><h2>ثلاث خطوات فقط</h2></div><div class="feature-grid">
-<article><b>01</b><h3>الصق الرابط</h3><p>أدخل رابط فيديو عام تملكه أو لديك تصريح باستخدامه.</p></article>
-<article><b>02</b><h3>تحقق من الإتاحة</h3><p>نعرض خيارات الحفظ الرسمية المتاحة، دون التحايل على الحماية أو الخصوصية.</p></article>
-<article><b>03</b><h3>احفظ بالجودة المتاحة</h3><p>نستهدف الحفاظ على أفضل جودة يوفرها المصدر بصورة مشروعة.</p></article>
-</div></section>
-<section class="plans" id="plans"><div><small>نظام الاستخدام</small><h2>ابدأ مجاناً، ووسّع استخدامك لاحقاً.</h2><p>الخطة المقترحة: 4 تنزيلات ناجحة مجانية لكل مستخدم يومياً. سيتم تفعيل الباقات المدفوعة بعد استكمال الحسابات والتحقق من التنزيلات.</p></div><div class="quota"><strong>4</strong><span>تنزيلات مجانية يومياً<br><small>حد الإطلاق المقترح</small></span></div></section>
+<section class="stats-strip"><div><strong>4</strong><span>محاولات مجانية يومياً <small>في الخطة المقترحة</small></span></div><div><strong>HD</strong><span>الجودة المتاحة <small>حسب الملف الأصلي</small></span></div><div><strong>24/7</strong><span>متاحة عبر الويب <small>من الهاتف والكمبيوتر</small></span></div></section>
+<section class="how-section section-wrap" id="how"><div class="section-heading"><span class="kicker">سهلة من أول مرة</span><h2>ثلاث خطوات. بدون تعقيد.</h2><p>واجهة واضحة تختصر عليك الطريق.</p></div><div class="steps-grid"><article class="step-card"><span class="step-number">01</span><div class="step-icon">↗</div><h3>انسخ الرابط</h3><p>انسخ رابط الفيديو العام الذي تملكه أو لديك إذن باستخدامه.</p></article><article class="step-card"><span class="step-number">02</span><div class="step-icon">⌕</div><h3>تحقق من الإتاحة</h3><p>اعرف خيارات الحفظ الرسمية والمتاحة دون تجاوز الخصوصية أو قيود المنصة.</p></article><article class="step-card"><span class="step-number">03</span><div class="step-icon">↓</div><h3>احفظ بجودته</h3><p>نستهدف الحفاظ على أفضل جودة يقدمها المصدر دون ضغط غير ضروري.</p></article></div></section>
+<section class="features-section section-wrap" id="features"><div class="features-copy"><span class="kicker">مصممة لتكون واضحة</span><h2>كل ما تحتاجه.<br><span class="gradient-text">ولا شيء يشتتك.</span></h2><p>نركز على تجربة نظيفة وسريعة، مع توضيح ما يمكن حفظه فعلياً وما يحتاج إلى إذن.</p></div><div class="feature-list"><div><span>✦</span><section><h3>أعلى جودة متاحة</h3><p>لا نعد بجودة أعلى من الملف الأصلي أو ما يتيحه المصدر.</p></section></div><div><span>▣</span><section><h3>تصميم مناسب لكل شاشة</h3><p>تجربة مريحة على الهاتف والكمبيوتر والأجهزة اللوحية.</p></section></div><div><span>♡</span><section><h3>احترام صناع المحتوى</h3><p>استخدم VIDORA للمحتوى الذي تملكه أو لديك تصريح بتنزيله.</p></section></div></div></section>
+<section class="plan-section section-wrap" id="plans"><div class="plan-card"><div><span class="kicker">خطة البداية</span><h2>ابدأ مجاناً.</h2><p>الخطة المقترحة تمنح كل مستخدم 4 تنزيلات ناجحة مجانية يومياً. سنضيف الخطط المدفوعة بعد اكتمال الحسابات والتحقق من التنزيلات.</p></div><div class="plan-count"><strong>04</strong><span>تنزيلات مجانية<br>كل يوم</span></div></div></section>
 </main>
-<footer><a class="brand" href="#"><span class="brand-mark">V</span><span>VIDORA</span></a><p>استخدم الأداة فقط للمحتوى الذي تملكه أو لديك إذن بتنزيله. احترم حقوق المبدعين وشروط المنصة.</p><span>© <span id="year"></span> VIDORA</span></footer>
-<script src="/app.js"></script>
+<footer class="site-footer"><a class="brand" href="#"><span class="brand-symbol">V</span><span>VIDORA</span></a><p>احفظ فقط المحتوى الذي تملكه أو لديك إذن بتنزيله. احترم حقوق المبدعين وشروط المنصة.</p><span class="copyright">© <span id="year"></span> VIDORA</span></footer>
+<script src="/app.js?v=2"></script>
 </body></html>
