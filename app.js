@@ -17,12 +17,10 @@ function normalizeTikTokUrl(value) {
   let trimmed = value.trim();
   if (!trimmed) return null;
   trimmed = trimmed.replace(/^["']+|["']+$/g, '').trim();
-  trimmed = trimmed.replace(/^\\/+(?=https?:\\/\\/)/i, '');
-  const candidate = /^https?:\\/\\//i.test(trimmed) ? trimmed : 'https://' + trimmed;
-
+  const candidate = /^https?:\/\//i.test(trimmed) ? trimmed : 'https://' + trimmed;
   try {
     const url = new URL(candidate);
-    const host = url.hostname.toLowerCase().replace(/^www\\./, '');
+    const host = url.hostname.toLowerCase().replace(/^www\./, '');
     const allowedHosts = new Set(['tiktok.com', 'm.tiktok.com', 'vm.tiktok.com', 'vt.tiktok.com']);
     if (!['https:', 'http:'].includes(url.protocol) || !allowedHosts.has(host)) return null;
     if (!url.pathname || url.pathname === '/') return null;
@@ -40,7 +38,6 @@ function clearPreview() {
 async function checkTikTokLink() {
   const normalized = normalizeTikTokUrl(input.value);
   clearPreview();
-
   if (!input.value.trim()) {
     showStatus('أدخل رابط فيديو TikTok أولاً.', 'error');
     input.focus();
@@ -55,7 +52,7 @@ async function checkTikTokLink() {
   input.value = normalized;
   button.disabled = true;
   button.querySelector('span').textContent = 'جارٍ الفحص...';
-  showStatus('جارٍ الاتصال بخدمة TikTok الرسمية للتحقق من الفيديو...', '');
+  showStatus('جارٍ الاتصال بخدمة TikTok الرسمية للتحقق من الفيديو...');
 
   try {
     const response = await fetch('/api/validate', {
@@ -64,14 +61,11 @@ async function checkTikTokLink() {
       body: JSON.stringify({ url: normalized })
     });
     const result = await response.json();
-
     if (!response.ok || !result.ok) {
       showStatus(result.message || 'تعذر التحقق من الرابط.', 'error');
       return;
     }
-
     showStatus(result.message, 'success');
-
     if (result.previewAvailable && result.videoId && preview) {
       const frame = document.createElement('iframe');
       frame.src = 'https://www.tiktok.com/player/v1/' + encodeURIComponent(result.videoId) + '?music_info=1&description=1';
